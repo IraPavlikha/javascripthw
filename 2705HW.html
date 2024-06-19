@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Prompts</title>
+</head>
+<body>
+<script>
+    // 1. Запитайте у користувача його ім'я і виведіть у відповідь: «Привіт, його ім'я!».
+    let name = prompt("Введіть ваше ім'я:");
+    alert(`Привіт, ${name}!`);
+
+    // 2. Запитайте у користувача рік його народження, порахуйте, скільки йому років і виведіть результат. Поточний рік вкажіть у коді як константу.
+    const CURRENT_YEAR = 2024;
+    let birthYear = prompt("Введіть рік вашого народження:");
+    let age = CURRENT_YEAR - birthYear;
+    alert(`Вам ${age} років.`);
+
+    // 3. Запитайте у користувача довжину сторони квадрата і виведіть периметр такого квадрата.
+    let sideLength = prompt("Введіть довжину сторони квадрата в сантиметрах:");
+    let perimeter = 4 * sideLength;
+    alert(`Периметр квадрата: ${perimeter} см.`);
+
+    // 4. Запитайте у користувача радіус кола і виведіть площу такого кола.
+    let radius = prompt("Введіть радіус кола в сантиметрах:");
+    let area = Math.PI * Math.pow(radius, 2);
+    alert(`Площа кола: ${area.toFixed(2)} кв. см.`);
+
+    // 5. Запитайте у користувача відстань у км між двома містами і за скільки годин він хоче дістатися. Порахуйте швидкість, з якою необхідно рухатися, щоб встигнути вчасно.
+    let distance = prompt("Введіть відстань між двома містами в кілометрах:");
+    let time = prompt("Введіть кількість годин, за яку хочете дістатися:");
+    let speed = distance / time;
+    alert(`Необхідна швидкість: ${speed.toFixed(2)} км/год.`);
+
+    // 6. Реалізуйте конвертор валют. Користувач вводить долари, програма переводить в євро. Курс валюти зберігайте в константі.
+    const EXCHANGE_RATE = 0.85; // приблизний курс на момент написання
+    let dollars = prompt("Введіть суму в доларах:");
+    let euros = dollars * EXCHANGE_RATE;
+    alert(`Сума в євро: ${euros.toFixed(2)} €.`);
+
+    // 7. Користувач вказує обсяг флешки в Гб. Програма повинна порахувати скільки файлів розміром в 820 Мб вміщується на флешку.
+    let flashDriveSizeGB = prompt("Введіть обсяг флешки в Гб:");
+    let flashDriveSizeMB = flashDriveSizeGB * 1024; // переводимо в Мб
+    let fileSizeMB = 820;
+    let fileCount = Math.floor(flashDriveSizeMB / fileSizeMB);
+    alert(`На флешку вміщується ${fileCount} файлів розміром по 820 Мб.`);
+
+    // 8. Користувач вводить суму грошей у гаманці і ціну однієї шоколадки. Програма виводить скільки шоколадок може купити користувач і скільки здачі у нього залишиться.
+    let money = prompt("Введіть суму грошей у гаманці:");
+    let chocolatePrice = prompt("Введіть ціну однієї шоколадки:");
+    let chocolateCount = Math.floor(money / chocolatePrice);
+    let change = money % chocolatePrice;
+    alert(`Ви можете купити ${chocolateCount} шоколадок. Ваша здача: ${change.toFixed(2)}.`);
+
+    // 9. Запитайте у користувача тризначне число і виведіть його задом наперед. Для вирішення задачі вам знадобиться оператор % (залишок від ділення).
+    let number = prompt("Введіть тризначне число:");
+    let reversedNumber = (number % 10) * 100 + (Math.floor(number / 10) % 10) * 10 + Math.floor(number / 100);
+    alert(`Число задом наперед: ${reversedNumber}.`);
+
+    // 10. Запитайте у користувача ціле число і виведіть у відповідь, парне число чи ні. У завданні використовуйте логічні оператори. У завданні не треба використовувати if або switch.
+    let integer = prompt("Введіть ціле число:");
+    let isEven = (integer % 2 === 0) ? "парне" : "непарне";
+    alert(`Число ${integer} є ${isEven}.`);
+</script>
+</body>
+</html>
