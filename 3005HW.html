@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3005HW</title>
+</head>
+<body>
+<script>
+    // 1. Підрахувати суму всіх чисел у заданому користувачем діапазоні.
+    let start = parseInt(prompt("Введіть початок діапазону:"));
+    let end = parseInt(prompt("Введіть кінець діапазону:"));
+    let sum = 0;
+    for (let i = start; i <= end; i++) {
+        sum += i;
+    }
+    alert(`Сума всіх чисел у діапазоні: ${sum}`);
+
+    // 2. Запросити 2 числа і знайти тільки найбільший спільний дільник.
+    let a = parseInt(prompt("Введіть перше число:"));
+    let b = parseInt(prompt("Введіть друге число:"));
+    while (a !== b) {
+        if (a > b) {
+            a = a - b;
+        } else {
+            b = b - a;
+        }
+    }
+    alert(`Найбільший спільний дільник: ${a}`);
+
+    // 3. Запросити у користувача число і вивести всі дільники цього числа.
+    let num = parseInt(prompt("Введіть число:"));
+    let divisors = [];
+    for (let i = 1; i <= num; i++) {
+        if (num % i === 0) {
+            divisors.push(i);
+        }
+    }
+    alert(`Дільники числа ${num}: ${divisors.join(", ")}`);
+
+    // 4. Визначити кількість цифр у введеному числі.
+    let number = prompt("Введіть число:");
+    let count = 0;
+    let tempNum = parseInt(number);
+    while (tempNum !== 0) {
+        tempNum = Math.floor(tempNum / 10);
+        count++;
+    }
+    alert(`Кількість цифр у числі ${number}: ${count}`);
+
+    // 5. Запросити у користувача 10 чисел і підрахувати, скільки він ввів позитивних, негативних і нулів.
+    // При цьому також порахувати, скільки парних і непарних чисел.
+    let positives = 0, negatives = 0, zeros = 0, evens = 0, odds = 0;
+    for (let i = 0; i < 10; i++) {
+        let input = parseInt(prompt("Введіть число:"));
+        if (input > 0) positives++;
+        else if (input < 0) negatives++;
+        else zeros++;
+        if (input % 2 === 0) evens++;
+        else odds++;
+    }
+    alert(`Позитивних: ${positives}, Негативних: ${negatives}, Нулів: ${zeros}, Парних: ${evens}, Непарних: ${odds}`);
+
+    // 6. Зациклити калькулятор.
+    do {
+        let num1 = parseFloat(prompt("Введіть перше число:"));
+        let num2 = parseFloat(prompt("Введіть друге число:"));
+        let operator = prompt("Введіть оператор (+, -, *, /):");
+        let result;
+        switch (operator) {
+            case '+':
+                result = num1 + num2;
+                break;
+            case '-':
+                result = num1 - num2;
+                break;
+            case '*':
+                result = num1 * num2;
+                break;
+            case '/':
+                result = num1 / num2;
+                break;
+            default:
+                alert("Неправильний оператор!");
+                continue;
+        }
+        alert(`Результат: ${result}`);
+    } while (confirm("Хочете вирішити ще один приклад?"));
+
+    // 7. Запросити у користувача число і на скільки цифр його зсунути.
+    let numberToShift = prompt("Введіть число:");
+    let shiftBy = parseInt(prompt("На скільки цифр зсунути число?"));
+    let shiftedNumber = numberToShift.slice(shiftBy) + numberToShift.slice(0, shiftBy);
+    alert(`Число після зсуву: ${shiftedNumber}`);
+
+    // 8. Зациклити вивід днів тижня.
+    let days = ["Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота", "Неділя"];
+    let dayIndex = 0;
+    do {
+        alert(days[dayIndex]);
+        dayIndex = (dayIndex + 1) % 7;
+    } while (confirm("Хочете побачити наступний день?"));
+
+    // 9. Вивести таблицю множення для всіх чисел від 2 до 9.
+    let table = "";
+    for (let i = 2; i <= 9; i++) {
+        for (let j = 1; j <= 10; j++) {
+            table += `${i} * ${j} = ${i * j}\n`;
+        }
+        table += "\n";
+    }
+    alert(table);
+
+    // 10. Гра «Вгадай число».
+    let min = 0;
+    let max = 100;
+    let guessed = false;
+    while (!guessed) {
+        let guess = Math.floor((min + max) / 2);
+        let response = prompt(`Ваше число > ${guess}, < ${guess} чи == ${guess}? (введіть >, < чи ==)`);
+        if (response === ">") {
+            min = guess + 1;
+        } else if (response === "<") {
+            max = guess - 1;
+        } else if (response === "==") {
+            alert(`Я вгадав ваше число! Це ${guess}`);
+            guessed = true;
+        } else {
+            alert("Неправильне введення. Будь ласка, введіть >, < чи ==");
+        }
+    }
+</script>
+</body>
+</html>
