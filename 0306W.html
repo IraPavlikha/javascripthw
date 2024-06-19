@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Functions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .task {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            border-color: black;
+            background: #cccccc;
+        }
+        .task h2 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="task">
+    <h2>1. Порівняння чисел</h2>
+    <input type="number" id="num1" placeholder="Перше число">
+    <input type="number" id="num2" placeholder="Друге число">
+    <button onclick="compareNumbers()">Порівняти</button>
+    <p id="result1"></p>
+</div>
+
+<div class="task">
+    <h2>2. Факторіал числа</h2>
+    <input type="number" id="factorialNum" placeholder="Число">
+    <button onclick="calculateFactorial()">Обчислити факторіал</button>
+    <p id="result2"></p>
+</div>
+
+<div class="task">
+    <h2>3. Об'єднання цифр</h2>
+    <input type="number" id="digit1" placeholder="Цифра 1">
+    <input type="number" id="digit2" placeholder="Цифра 2">
+    <input type="number" id="digit3" placeholder="Цифра 3">
+    <button onclick="combineDigits()">Об'єднати</button>
+    <p id="result3"></p>
+</div>
+
+<div class="task">
+    <h2>4. Площа прямокутника/квадрата</h2>
+    <input type="number" id="length" placeholder="Довжина">
+    <input type="number" id="width" placeholder="Ширина (необов'язково)">
+    <button onclick="calculateArea()">Обчислити площу</button>
+    <p id="result4"></p>
+</div>
+
+<div class="task">
+    <h2>5. Досконале число</h2>
+    <input type="number" id="perfectNum" placeholder="Число">
+    <button onclick="checkPerfectNumber()">Перевірити</button>
+    <p id="result5"></p>
+</div>
+
+<div class="task">
+    <h2>6. Досконалі числа в діапазоні</h2>
+    <input type="number" id="minRange" placeholder="Мінімальне значення">
+    <input type="number" id="maxRange" placeholder="Максимальне значення">
+    <button onclick="perfectNumbersInRange()">Знайти досконалі числа</button>
+    <p id="result6"></p>
+</div>
+
+<div class="task">
+    <h2>7. Форматування часу</h2>
+    <input type="number" id="hours" placeholder="Години">
+    <input type="number" id="minutes" placeholder="Хвилини">
+    <input type="number" id="seconds" placeholder="Секунди">
+    <button onclick="formatTime()">Форматувати час</button>
+    <p id="result7"></p>
+</div>
+
+<div class="task">
+    <h2>8. Час у секундах</h2>
+    <input type="number" id="hoursToSeconds" placeholder="Години">
+    <input type="number" id="minutesToSeconds" placeholder="Хвилини">
+    <input type="number" id="secondsToSeconds" placeholder="Секунди">
+    <button onclick="timeInSeconds()">Перевести у секунди</button>
+    <p id="result8"></p>
+</div>
+
+<div class="task">
+    <h2>9. Секунди у час</h2>
+    <input type="number" id="totalSeconds" placeholder="Секунди">
+    <button onclick="secondsToTime()">Перевести у час</button>
+    <p id="result9"></p>
+</div>
+
+<div class="task">
+    <h2>10. Різниця між датами</h2>
+    <input type="number" id="hours1" placeholder="Години (Дата 1)">
+    <input type="number" id="minutes1" placeholder="Хвилини (Дата 1)">
+    <input type="number" id="seconds1" placeholder="Секунди (Дата 1)">
+    <input type="number" id="hours2" placeholder="Години (Дата 2)">
+    <input type="number" id="minutes2" placeholder="Хвилини (Дата 2)">
+    <input type="number" id="seconds2" placeholder="Секунди (Дата 2)">
+    <button onclick="dateDifference()">Обчислити різницю</button>
+    <p id="result10"></p>
+</div>
+
+<script>
+    function compareNumbers() {
+        const num1 = parseFloat(document.getElementById('num1').value);
+        const num2 = parseFloat(document.getElementById('num2').value);
+        const result = num1 < num2 ? -1 : num1 > num2 ? 1 : 0;
+        document.getElementById('result1').textContent = `Результат: ${result}`;
+    }
+
+    function calculateFactorial() {
+        const num = parseInt(document.getElementById('factorialNum').value);
+        const result = factorial(num);
+        document.getElementById('result2').textContent = `Факторіал: ${result}`;
+    }
+
+    function factorial(n) {
+        if (n === 0 || n === 1) return 1;
+        return n * factorial(n - 1);
+    }
+
+    function combineDigits() {
+        const digit1 = parseInt(document.getElementById('digit1').value);
+        const digit2 = parseInt(document.getElementById('digit2').value);
+        const digit3 = parseInt(document.getElementById('digit3').value);
+        const result = parseInt(`${digit1}${digit2}${digit3}`);
+        document.getElementById('result3').textContent = `Результат: ${result}`;
+    }
+
+    function calculateArea() {
+        const length = parseFloat(document.getElementById('length').value);
+        const width = parseFloat(document.getElementById('width').value) || length;
+        const result = length * width;
+        document.getElementById('result4').textContent = `Площа: ${result}`;
+    }
+
+    function checkPerfectNumber() {
+        const num = parseInt(document.getElementById('perfectNum').value);
+        const result = isPerfectNumber(num) ? "Число є досконалим" : "Число не є досконалим";
+        document.getElementById('result5').textContent = result;
+    }
+
+    function isPerfectNumber(num) {
+        let sum = 0;
+        for (let i = 1; i < num; i++) {
+            if (num % i === 0) sum += i;
+        }
+        return sum === num;
+    }
+
+    function perfectNumbersInRange() {
+        const min = parseInt(document.getElementById('minRange').value);
+        const max = parseInt(document.getElementById('maxRange').value);
+        const perfectNumbers = getPerfectNumbersInRange(min, max);
+        document.getElementById('result6').textContent = `Досконалі числа: ${perfectNumbers.join(', ')}`;
+    }
+
+    function getPerfectNumbersInRange(min, max) {
+        let perfectNumbers = [];
+        for (let i = min; i <= max; i++) {
+            if (isPerfectNumber(i)) perfectNumbers.push(i);
+        }
+        return perfectNumbers;
+    }
+
+    function formatTime() {
+        const hours = parseInt(document.getElementById('hours').value) || 0;
+        const minutes = parseInt(document.getElementById('minutes').value) || 0;
+        const seconds = parseInt(document.getElementById('seconds').value) || 0;
+        const result = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        document.getElementById('result7').textContent = `Час: ${result}`;
+    }
+
+    function timeInSeconds() {
+        const hours = parseInt(document.getElementById('hoursToSeconds').value) || 0;
+        const minutes = parseInt(document.getElementById('minutesToSeconds').value) || 0;
+        const seconds = parseInt(document.getElementById('secondsToSeconds').value) || 0;
+        const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+        document.getElementById('result8').textContent = `Час у секундах: ${totalSeconds} секунд`;
+    }
+
+    function secondsToTime() {
+        const totalSeconds = parseInt(document.getElementById('totalSeconds').value);
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+        const result = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        document.getElementById('result9').textContent = `Час: ${result}`;
+    }
+
+    function dateDifference() {
+        const hours1 = parseInt(document.getElementById('hours1').value) || 0;
+        const minutes1 = parseInt(document.getElementById('minutes1').value) || 0;
+        const seconds1 = parseInt(document.getElementById('seconds1').value) || 0;
+        const hours2 = parseInt(document.getElementById('hours2').value) || 0;
+        const minutes2 = parseInt(document.getElementById('minutes2').value) || 0;
+        const seconds2 = parseInt(document.getElementById('seconds2').value) || 0;
+
+        const totalSeconds1 = hours1 * 3600 + minutes1 * 60 + seconds1;
+        const totalSeconds2 = hours2 * 3600 + minutes2 * 60 + seconds2;
+
+        const difference = Math.abs(totalSeconds1 - totalSeconds2);
+
+        const hoursDiff = Math.floor(difference / 3600);
+        const minutesDiff = Math.floor((difference % 3600) / 60);
+        const secondsDiff = difference % 60;
+
+        const result = `${String(hoursDiff).padStart(2, '0')}:${String(minutesDiff).padStart(2, '0')}:${String(secondsDiff).padStart(2, '0')}`;
+        document.getElementById('result10').textContent = `Різниця між датами: ${result}`;
+    }
+</script>
+</body>
+</html>
+
