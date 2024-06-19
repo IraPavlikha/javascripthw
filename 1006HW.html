@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1006HW</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 600px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #375f7b;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #27455a;
+        }
+        input {
+            padding: 8px;
+            width: 100px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <ul>
+        <li>
+            <input type="number" id="powerBase" placeholder="Основа">
+            <input type="number" id="powerExponent" placeholder="Степінь">
+            <button onclick="executePower()">1. Возведение числа в степень</button>
+            <div id="powerResult"></div>
+        </li>
+        <li>
+            <input type="number" id="gcdNumber1" placeholder="Число 1">
+            <input type="number" id="gcdNumber2" placeholder="Число 2">
+            <button onclick="executeGCD()">2. Наибольший общий делитель</button>
+            <div id="gcdResult"></div>
+        </li>
+        <li>
+            <input type="number" id="maxDigitNumber" placeholder="Число">
+            <button onclick="executeMaxDigit()">3. Максимальная цифра в числе</button>
+            <div id="maxDigitResult"></div>
+        </li>
+        <li>
+            <input type="number" id="isPrimeNumber" placeholder="Число">
+            <button onclick="executeIsPrime()">4. Проверка на простоту числа</button>
+            <div id="isPrimeResult"></div>
+        </li>
+        <li>
+            <input type="number" id="primeFactorsNumber" placeholder="Число">
+            <button onclick="executePrimeFactors()">5. Множители числа</button>
+            <div id="primeFactorsResult"></div>
+        </li>
+    </ul>
+</div>
+<script>
+    function executePower() {
+        let base = parseInt(document.getElementById('powerBase').value);
+        let exponent = parseInt(document.getElementById('powerExponent').value);
+        let resultDiv = document.getElementById('powerResult');
+        if (!isNaN(base) && !isNaN(exponent)) {
+            let powerResult = power(base, exponent);
+            resultDiv.innerHTML = `Результат: ${powerResult}`;
+        } else {
+            resultDiv.innerHTML = 'Будь ласка, введіть числа';
+        }
+    }
+    function executeGCD() {
+        let number1 = parseInt(document.getElementById('gcdNumber1').value);
+        let number2 = parseInt(document.getElementById('gcdNumber2').value);
+        let resultDiv = document.getElementById('gcdResult');
+
+        if (!isNaN(number1) && !isNaN(number2)) {
+            let gcdResult = gcd(number1, number2);
+            resultDiv.innerHTML = `Результат: ${gcdResult}`;
+        } else {
+            resultDiv.innerHTML = 'Будь ласка, введіть числа';
+        }
+    }
+    function executeMaxDigit() {
+        let number = parseInt(document.getElementById('maxDigitNumber').value);
+        let resultDiv = document.getElementById('maxDigitResult');
+
+        if (!isNaN(number)) {
+            let maxDigitResult = maxDigit(number);
+            resultDiv.innerHTML = `Результат: ${maxDigitResult}`;
+        } else {
+            resultDiv.innerHTML = 'Будь ласка, введіть число';
+        }
+    }
+    function executeIsPrime() {
+        let number = parseInt(document.getElementById('isPrimeNumber').value);
+        let resultDiv = document.getElementById('isPrimeResult');
+
+        if (!isNaN(number)) {
+            let isPrimeResult = isPrime(number);
+            resultDiv.innerHTML = `Результат: ${isPrimeResult}`;
+        } else {
+            resultDiv.innerHTML = 'Будь ласка, введіть число';
+        }
+    }
+    function executePrimeFactors() {
+        let number = parseInt(document.getElementById('primeFactorsNumber').value);
+        let resultDiv = document.getElementById('primeFactorsResult');
+
+        if (!isNaN(number)) {
+            let primeFactorsResult = primeFactors(number);
+            resultDiv.innerHTML = `Результат: ${primeFactorsResult}`;
+        } else {
+            resultDiv.innerHTML = 'Будь ласка, введіть число';
+        }
+    }
+    function power(base, exponent) {
+        if (exponent === 0) {
+            return 1;
+        } else {
+            return base * power(base, exponent - 1);
+        }
+    }
+    function gcd(a, b) {
+        if (b === 0) {
+            return a;
+        } else {
+            return gcd(b, a % b);
+        }
+    }
+    function maxDigit(number) {
+        let numStr = String(number);
+        if (numStr.length === 1) {
+            return Number(numStr);
+        } else {
+            let firstDigit = Number(numStr[0]);
+            let restMax = maxDigit(numStr.slice(1));
+            return Math.max(firstDigit, restMax);
+        }
+    }
+    function isPrime(number, divisor = 2) {
+        if (number <= 2) {
+            return (number === 2);
+        }
+        if (number % divisor === 0) {
+            return false;
+        } else if (divisor * divisor > number) {
+            return true;
+        } else {
+            return isPrime(number, divisor + 1);
+        }
+    }
+    function primeFactors(number, divisor = 2) {
+        if (number < 2) {
+            return [];
+        }
+        if (number % divisor === 0) {
+            return [divisor].concat(primeFactors(number / divisor, divisor));
+        } else {
+            return primeFactors(number, divisor + 1);
+        }
+    }
+</script>
+</body>
+</html>
