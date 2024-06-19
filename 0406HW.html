@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0406HW</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .task {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+        }
+        .task h2 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="task">
+    <h2>Завдання 1: Опис автомобіля</h2>
+    <label for="manufacturer">Виробник:</label>
+    <input type="text" id="manufacturer" placeholder="Виробник"><br><br>
+    <label for="model">Модель:</label>
+    <input type="text" id="model" placeholder="Модель"><br><br>
+    <label for="year">Рік випуску:</label>
+    <input type="number" id="year" placeholder="Рік випуску"><br><br>
+    <label for="averageSpeed">Середня швидкість (км/год):</label>
+    <input type="number" id="averageSpeed" placeholder="Середня швидкість"><br><br>
+    <button onclick="displayCarInfo()">Вивести інформацію</button><br><br>
+    <label for="distance">Відстань (км):</label>
+    <input type="number" id="distance" placeholder="Відстань"><br><br>
+    <button onclick="calculateTravelTime()">Підрахувати час</button><br><br>
+    <p id="carInfo"></p>
+    <p id="travelTime"></p>
+</div>
+<div class="task">
+    <h2>Завдання 2: Операції з дробами</h2>
+    <label for="numerator1">Чисельник 1:</label>
+    <input type="number" id="numerator1" placeholder="Чисельник"><br><br>
+    <label for="denominator1">Знаменник 1:</label>
+    <input type="number" id="denominator1" placeholder="Знаменник"><br><br>
+    <label for="numerator2">Чисельник 2:</label>
+    <input type="number" id="numerator2" placeholder="Чисельник"><br><br>
+    <label for="denominator2">Знаменник 2:</label>
+    <input type="number" id="denominator2" placeholder="Знаменник"><br><br>
+    <button onclick="addFractions()">Додати дроби</button>
+    <button onclick="subtractFractions()">Відняти дроби</button>
+    <button onclick="multiplyFractions()">Помножити дроби</button>
+    <button onclick="divideFractions()">Розділити дроби</button>
+    <button onclick="reduceFraction()">Скоротити дріб</button><br><br>
+    <p id="fractionResult"></p>
+</div>
+<div class="task">
+    <h2>Завдання 3: Опис часу</h2>
+    <label for="hours">Години:</label>
+    <input type="number" id="hours" placeholder="Години"><br><br>
+    <label for="minutes">Хвилини:</label>
+    <input type="number" id="minutes" placeholder="Хвилини"><br><br>
+    <label for="seconds">Секунди:</label>
+    <input type="number" id="seconds" placeholder="Секунди"><br><br>
+    <button onclick="displayTime()">Вивести час</button><br><br>
+    <button onclick="addSeconds()">Додати секунди</button>
+    <button onclick="addMinutes()">Додати хвилини</button>
+    <button onclick="addHours()">Додати години</button><br><br>
+    <p id="timeInfo"></p>
+</div>
+<script>
+    // Завдання 1: Опис автомобіля
+    let car = {
+        manufacturer: "",
+        model: "",
+        year: 0,
+        averageSpeed: 0,
+        displayInfo: function() {
+            return `Автомобіль: ${this.manufacturer} ${this.model}<br>
+                Рік випуску: ${this.year}<br>
+                Середня швидкість: ${this.averageSpeed} км/год`;
+        },
+        calculateTravelTime: function(distance) {
+            let time = distance / this.averageSpeed;
+            let restCount = Math.floor(time / 4);
+            let restTime = restCount * 1;
+            let totalHours = time + restTime;
+            let hours = Math.floor(totalHours);
+            let minutes = Math.round((totalHours - hours) * 60);
+
+            return `Необхідний час для подолання ${distance} км: ${hours} годин ${minutes} хвилин`;
+        }
+    };
+    function displayCarInfo() {
+        let manufacturer = document.getElementById('manufacturer').value;
+        let model = document.getElementById('model').value;
+        let year = document.getElementById('year').value;
+        let averageSpeed = document.getElementById('averageSpeed').value;
+        if (!manufacturer || !model || !year || !averageSpeed) {
+            alert('Будь ласка, заповніть всі поля');
+            return;
+        }
+        car.manufacturer = manufacturer;
+        car.model = model;
+        car.year = parseInt(year);
+        car.averageSpeed = parseInt(averageSpeed);
+        document.getElementById('carInfo').innerHTML = car.displayInfo();
+    }
+    function calculateTravelTime() {
+        let distance = parseFloat(document.getElementById('distance').value);
+        if (isNaN(distance) || distance <= 0) {
+            alert('Будь ласка, введіть коректну відстань');
+            return;
+        }
+        document.getElementById('travelTime').innerHTML = car.calculateTravelTime(distance);
+    }
+    // Завдання 2: Операції з дробами
+    function addFractions() {
+        let numerator1 = parseInt(document.getElementById('numerator1').value);
+        let denominator1 = parseInt(document.getElementById('denominator1').value);
+        let numerator2 = parseInt(document.getElementById('numerator2').value);
+        let denominator2 = parseInt(document.getElementById('denominator2').value);
+        let fraction1 = new Fraction(numerator1, denominator1);
+        let fraction2 = new Fraction(numerator2, denominator2);
+        let result = fraction1.add(fraction2);
+        document.getElementById('fractionResult').textContent = `Сума дробів: ${result}`;
+    }
+    function subtractFractions() {
+        let numerator1 = parseInt(document.getElementById('numerator1').value);
+        let denominator1 = parseInt(document.getElementById('denominator1').value);
+        let numerator2 = parseInt(document.getElementById('numerator2').value);
+        let denominator2 = parseInt(document.getElementById('denominator2').value);
+        let fraction1 = new Fraction(numerator1, denominator1);
+        let fraction2 = new Fraction(numerator2, denominator2);
+        let result = fraction1.subtract(fraction2);
+        document.getElementById('fractionResult').textContent = `Різниця дробів: ${result}`;
+    }
+    function multiplyFractions() {
+        let numerator1 = parseInt(document.getElementById('numerator1').value);
+        let denominator1 = parseInt(document.getElementById('denominator1').value);
+        let numerator2 = parseInt(document.getElementById('numerator2').value);
+        let denominator2 = parseInt(document.getElementById('denominator2').value);
+        let fraction1 = new Fraction(numerator1, denominator1);
+        let fraction2 = new Fraction(numerator2, denominator2);
+        let result = fraction1.multiply(fraction2);
+        document.getElementById('fractionResult').textContent = `Добуток дробів: ${result}`;
+    }
+    function divideFractions() {
+        let numerator1 = parseInt(document.getElementById('numerator1').value);
+        let denominator1 = parseInt(document.getElementById('denominator1').value);
+        let numerator2 = parseInt(document.getElementById('numerator2').value);
+        let denominator2 = parseInt(document.getElementById('denominator2').value);
+        let fraction1 = new Fraction(numerator1, denominator1);
+        let fraction2 = new Fraction(numerator2, denominator2);
+        let result = fraction1.divide(fraction2);
+        document.getElementById('fractionResult').textContent = `Ділення дробів: ${result}`;
+    }
+    function reduceFraction() {
+        let numerator1 = parseInt(document.getElementById('numerator1').value);
+        let denominator1 = parseInt(document.getElementById('denominator1').value);
+        let fraction1 = new Fraction(numerator1, denominator1);
+        let result = fraction1.reduce();
+        document.getElementById('fractionResult').textContent = `Скорочений дріб: ${result}`;
+    }
+    class Fraction {
+        constructor(numerator, denominator) {
+            this.numerator = numerator;
+            this.denominator = denominator;
+        }
+        add(other) {
+            let resultNumerator = this.numerator * other.denominator + other.numerator * this.denominator;
+            let resultDenominator = this.denominator * other.denominator;
+            return `${resultNumerator}/${resultDenominator}`;
+        }
+        subtract(other) {
+            let resultNumerator = this.numerator * other.denominator - other.numerator * this.denominator;
+            let resultDenominator = this.denominator * other.denominator;
+            return `${resultNumerator}/${resultDenominator}`;
+        }
+        multiply(other) {
+            let resultNumerator = this.numerator * other.numerator;
+            let resultDenominator = this.denominator * other.denominator;
+            return `${resultNumerator}/${resultDenominator}`;
+        }
+        divide(other) {
+            let resultNumerator = this.numerator * other.denominator;
+            let resultDenominator = this.denominator * other.numerator;
+            return `${resultNumerator}/${resultDenominator}`;
+        }
+        reduce() {
+            let gcd = this.gcd(this.numerator, this.denominator);
+            let reducedNumerator = this.numerator / gcd;
+            let reducedDenominator = this.denominator / gcd;
+            return `${reducedNumerator}/${reducedDenominator}`;
+        }
+        gcd(a, b) {
+            return b === 0 ? a : this.gcd(b, a % b);
+        }
+    }
+    // Завдання 3: Опис часу
+    function displayTime() {
+        let hours = parseInt(document.getElementById('hours').value);
+        let minutes = parseInt(document.getElementById('minutes').value);
+        let seconds = parseInt(document.getElementById('seconds').value);
+        let time = new Time(hours, minutes, seconds);
+        document.getElementById('timeInfo').textContent = time.display();
+    }
+    function addSeconds() {
+        let secondsToAdd = parseInt(prompt("Введіть кількість секунд для додавання:"));
+        let time = getTimeObject();
+        time.addSeconds(secondsToAdd);
+        document.getElementById('timeInfo').textContent = time.display();
+    }
+    function addMinutes() {
+        let minutesToAdd = parseInt(prompt("Введіть кількість хвилин для додавання:"));
+        let time = getTimeObject();
+        time.addMinutes(minutesToAdd);
+        document.getElementById('timeInfo').textContent = time.display();
+    }
+    function addHours() {
+        let hoursToAdd = parseInt(prompt("Введіть кількість годин для додавання:"));
+        let time = getTimeObject();
+        time.addHours(hoursToAdd);
+        document.getElementById('timeInfo').textContent = time.display();
+    }
+    function getTimeObject() {
+        let hours = parseInt(document.getElementById('hours').value);
+        let minutes = parseInt(document.getElementById('minutes').value);
+        let seconds = parseInt(document.getElementById('seconds').value);
+        return new Time(hours, minutes, seconds);
+    }
+    class Time {
+        constructor(hours, minutes, seconds) {
+            this.hours = hours;
+            this.minutes = minutes;
+            this.seconds = seconds;
+        }
+        display() {
+            return `Час: ${this.format(this.hours)}:${this.format(this.minutes)}:${this.format(this.seconds)}`;
+        }
+        format(value) {
+            return value < 10 ? `0${value}` : value;
+        }
+        addSeconds(secondsToAdd) {
+            this.seconds += secondsToAdd;
+            this.normalizeTime();
+        }
+        addMinutes(minutesToAdd) {
+            this.minutes += minutesToAdd;
+            this.normalizeTime();
+        }
+        addHours(hoursToAdd) {
+            this.hours += hoursToAdd;
+            this.normalizeTime();
+        }
+        normalizeTime() {
+            let extraMinutes = Math.floor(this.seconds / 60);
+            this.seconds %= 60;
+            this.minutes += extraMinutes;
+            let extraHours = Math.floor(this.minutes / 60);
+            this.minutes %= 60;
+            this.hours += extraHours;
+        }
+    }
+</script>
+</body>
+</html>
